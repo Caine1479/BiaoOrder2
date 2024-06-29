@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/hall_item"
+        android:icon="@drawable/table"
+        android:title="@string/hall" />
+
+    <item
+        android:id="@+id/personalCenter_item"
+        android:icon="@drawable/username"
+        android:title="@string/personalCenter" />
+</menu>

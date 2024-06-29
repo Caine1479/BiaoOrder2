@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">BiaoOrder</string>
+    <string name="id">ID:</string>
+    <string name="password">密码:</string>
+    <string name="button_login">登录</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="yuan">元</string>
+    <string name="maoHao">:</string>
+    <string name="fab_content_desc">shoppingCar\n</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="splash">BIAO\'S ORDER</string>
+    <string name="hall">大厅</string>
+    <string name="personalCenter">个人中心</string>
+    <string name="NO">桌号:</string>
+    <string name="exit">退出登录</string>
+    <string name="title_activity_test">testActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="menu_transform">Transform</string>
+    <string name="menu_reflow">Reflow</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="lorem_ipsum_title">Lorem Ipsum"</string>
+    <string name="lorem_ipsum">Lorem Ipsum is simply placeholder text of the printing and
+        typesetting industry. Lorem Ipsum has been the industry\'s standard placeholder text ever
+        since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+        type specimen book"
+    </string>
+    <string name="fab_content_description">Represents a view to invoke an action</string>
+    <string name="image_view_item_transform_content_description">Represents an image view in the
+        item
+    </string>
+    <string name="addShoppingCar">加入购物车</string>
+    <string name="cancel">取消</string>
+    <string name="taste">口味</string>
+    <string name="notSpicy">不辣</string>
+    <string name="slightlySpicy">微辣</string>
+    <string name="mediumSpicy">中辣</string>
+    <string name="spicy">爆辣</string>
+
+</resources>
