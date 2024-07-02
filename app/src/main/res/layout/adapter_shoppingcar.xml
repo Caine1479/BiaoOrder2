@@ -16,7 +16,19 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:layout_toEndOf="@+id/img_shoppingTable"
-        android:textColor="@color/black" />
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tv_shoppingTaste"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shoppingName"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/img_shoppingTable"
+        android:textColor="@color/black"
+        android:textSize="11sp" />
 
     <ImageView
         android:id="@+id/img_add"
@@ -34,7 +46,7 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginTop="28dp"
         android:layout_toStartOf="@id/img_minus"
-        android:text="1"
+        android:text="@string/one"
         android:textSize="24sp" />
 
     <ImageView

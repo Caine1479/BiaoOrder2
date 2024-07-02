@@ -23,7 +23,6 @@ import androidx.appcompat.app.AlertDialog;
 
 import com.biaoorder2.R;
 import com.biaoorder2.activity.OrderActivity;
-import com.biaoorder2.bean.OrderCountManager;
 import com.biaoorder2.bean.OrderManager;
 import com.biaoorder2.bean.Orders;
 import com.biaoorder2.bean.VegetableInformation;
@@ -199,7 +198,7 @@ public class CustomDialog {
         }).start();
     }
 
-    public static void showVegetable(Context mContext, VegetableInformation vegetable, OnOrderAddedListener listener) {
+    public static void showVegetable(Context mContext, VegetableInformation vegetable, OnOrderAddedListener onOrderAddedListener) {
         // 创建对话框构造器
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         // 加载自定义布局
@@ -229,13 +228,13 @@ public class CustomDialog {
             // 将菜品加入购物车
             OrderManager orderManager = OrderManager.getInstance();
             orderManager.addOrder(hallTableNum, new Orders(hallTableNum, vegetable, 1, selectedText));
-            OrderCountManager.getInstance().addOrderCount(CustomDialog.hallTableNum,1);
 
             // 通知UI更新
-            listener.onOrderAdded();
+            if (onOrderAddedListener != null) {
+                onOrderAddedListener.onOrderAdded();
+            }
             dialog.dismiss();
             Toast.makeText(mContext, "已加入购物车", Toast.LENGTH_SHORT).show();
-
                 }
         );
     }

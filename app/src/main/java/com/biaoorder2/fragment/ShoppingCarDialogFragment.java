@@ -1,5 +1,6 @@
 package com.biaoorder2.fragment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.biaoorder2.R;
+import com.biaoorder2.activity.OrderActivity;
 import com.biaoorder2.adapter.LRShoppingCarAdapter;
 import com.biaoorder2.bean.OrderManager;
 import com.biaoorder2.bean.Orders;
@@ -21,17 +23,13 @@ import java.util.List;
 
 public class ShoppingCarDialogFragment extends BottomSheetDialogFragment {
     public List<Orders> ordersList;
-
-
     public RecyclerView recyclerView;
-
     public LRShoppingCarAdapter adapter;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_shoppingcar,container,false);
+        return inflater.inflate(R.layout.fragment_shoppingcar, container, false);
     }
 
     @Override
@@ -42,7 +40,19 @@ public class ShoppingCarDialogFragment extends BottomSheetDialogFragment {
 
         OrderManager orderManager = OrderManager.getInstance();
         ordersList = orderManager.getOrders(CustomDialog.hallTableNum); // 获取订单列表
-        adapter = new LRShoppingCarAdapter(requireContext(),ordersList);
+        adapter = new LRShoppingCarAdapter(requireContext(), ordersList, pos -> {
+        });
         recyclerView.setAdapter(adapter);
     }
+
+    // fragment关闭的时候
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        // 获取宿主Activity并调用刷新方法
+        if (getActivity() instanceof OrderActivity) {
+            ((OrderActivity) getActivity()).updateVegetableCount(CustomDialog.hallTableNum);
+        }
+    }
+
 }

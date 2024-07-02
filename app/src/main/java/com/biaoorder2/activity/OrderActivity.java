@@ -7,12 +7,14 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.biaoorder2.R;
 import com.biaoorder2.adapter.LROrderAdapter;
-import com.biaoorder2.bean.OrderCountManager;
+import com.biaoorder2.bean.OrderManager;
 import com.biaoorder2.bean.VegetableInformation;
 import com.biaoorder2.fragment.ShoppingCarDialogFragment;
 import com.biaoorder2.ui.ReToast;
@@ -41,21 +43,15 @@ public class OrderActivity extends AppCompatActivity implements OnOrderAddedList
     public FloatingActionButton shoppingCar;
     private TextView tvVegetableCount;
     public List<VegetableInformation> vegetableList = new ArrayList<>();
-    private  Handler mainHandler;
+    private Handler mainHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order);
-
-        OrderCountManager.getInstance().addListener(this::updateVegetableCount);
         initView();
     }
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        OrderCountManager.getInstance().removeListener(this::updateVegetableCount);
-    }
+
     @SuppressLint("NotifyDataSetChanged")
     public void initView() {
         recyclerView = findViewById(R.id.recyclerView_vegetableMenu);
@@ -76,9 +72,9 @@ public class OrderActivity extends AppCompatActivity implements OnOrderAddedList
 
     // 更新指定桌号的订单数量
     public void updateVegetableCount(int tableNo) {
-        int orderCount = OrderCountManager.getInstance().getOrderCount(tableNo);
+        String orderCount = OrderManager.getInstance().getAllTableNum(tableNo);
         runOnUiThread(() ->
-                tvVegetableCount.setText(String.valueOf(orderCount)));
+                tvVegetableCount.setText(orderCount));
     }
 
     public void getVegetableList() {
@@ -105,7 +101,7 @@ public class OrderActivity extends AppCompatActivity implements OnOrderAddedList
                         String imageLink = jsonObject.getString("imageLink");
                         vegetableList.add(new VegetableInformation(id, name, price, imageLink));
                     }
-                }else {
+                } else {
                     mainHandler.post(() -> ReToast.show(this, "数据获取失败..."));
                 }
             } catch (IOException | JSONException e) {

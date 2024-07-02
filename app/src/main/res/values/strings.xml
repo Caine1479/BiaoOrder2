@@ -8,6 +8,7 @@
     <string name="yuan">元</string>
     <string name="maoHao">:</string>
     <string name="fab_content_desc">shoppingCar\n</string>
+    <string name="fab_content_desc2">下单\n</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="splash">BIAO\'S ORDER</string>
     <string name="hall">大厅</string>
@@ -44,5 +45,7 @@
     <string name="slightlySpicy">微辣</string>
     <string name="mediumSpicy">中辣</string>
     <string name="spicy">爆辣</string>
+    <string name="one">1</string>
+    <string name="placeAnOrder">下单</string>
 
 </resources>

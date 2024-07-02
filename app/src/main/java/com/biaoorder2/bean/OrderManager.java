@@ -28,16 +28,40 @@ public class OrderManager {
         // 如果 no 对应的订单列表不存在，则创建一个新的订单列表
         orderMap.computeIfAbsent(no, k -> new ArrayList<>()).add(order);
     }
+    // 删除指定桌号的指定订单
+    public synchronized void removeOrder(int no, Orders order) {
+        List<Orders> ordersList = orderMap.get(no);
+        if (ordersList != null) {
+            ordersList.remove(order);
+            if (ordersList.isEmpty()) {
+                orderMap.remove(no);
+            }
+        }
+    }
+
+    // 取所有餐桌中菜品的数量
+    public synchronized String getAllTableNum(int no){
+        List<Orders> ordersList = orderMap.get(no);
+        int sum = 0;
+        if (ordersList != null){
+            for (int i = 0; i < ordersList.size(); i++) {
+                int count = ordersList.get(i).getVegetableNum();
+                sum += count;
+            }
+        }
+       return String.valueOf(sum);
+    }
+
+    // 添加指定餐桌的指定菜品的数量加一
+    public synchronized void addOrderCount(int no){
+
+    }
 
     // 获取订单列表
     public synchronized List<Orders> getOrders(int no) {
         return orderMap.getOrDefault(no, new ArrayList<>());
     }
 
-    // 获取指定桌号的订单数量
-    public synchronized int getOrderCount(int no) {
-        return getOrders(no).size();
-    }
 
     // 删除某个 no 的所有订单
     public synchronized void removeOrders(int no) {

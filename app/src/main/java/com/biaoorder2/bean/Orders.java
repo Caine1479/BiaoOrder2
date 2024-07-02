@@ -8,6 +8,7 @@ public class Orders {
     public int vegetableNum;
     public String taste;
 
+
     public Orders(int tableNo, VegetableInformation vegetableInformation, int vegetableNum, String taste) {
         this.tableNo = tableNo;
         this.vegetableInformation = vegetableInformation;
