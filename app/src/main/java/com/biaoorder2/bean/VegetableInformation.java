@@ -47,14 +47,4 @@ public class VegetableInformation {
         this.imageLink = imageLink;
     }
 
-    @NonNull
-    @Override
-    public String toString() {
-        return "VegetableInformation{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price='" + price + '\'' +
-                ", imageLink='" + imageLink + '\'' +
-                '}';
-    }
 }

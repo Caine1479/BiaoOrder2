@@ -16,6 +16,7 @@ import com.biaoorder2.R;
 import com.biaoorder2.adapter.LROrderAdapter;
 import com.biaoorder2.bean.OrderManager;
 import com.biaoorder2.bean.VegetableInformation;
+import com.biaoorder2.databinding.ActivityOrderBinding;
 import com.biaoorder2.fragment.ShoppingCarDialogFragment;
 import com.biaoorder2.ui.ReToast;
 import com.biaoorder2.util.CustomDialog;
@@ -31,6 +32,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.Response;
@@ -41,6 +43,7 @@ public class OrderActivity extends AppCompatActivity implements OnOrderAddedList
     public LROrderAdapter adapter;
     public RecyclerView recyclerView;
     public FloatingActionButton shoppingCar;
+    public FloatingActionButton placeOrders;
     private TextView tvVegetableCount;
     public List<VegetableInformation> vegetableList = new ArrayList<>();
     private Handler mainHandler;
@@ -48,6 +51,7 @@ public class OrderActivity extends AppCompatActivity implements OnOrderAddedList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_order);
         initView();
     }
@@ -61,10 +65,16 @@ public class OrderActivity extends AppCompatActivity implements OnOrderAddedList
         setOnClickListener clickListener = pos -> CustomDialog.showVegetable(this, vegetableList.get(pos), this);
         adapter = new LROrderAdapter(vegetableList, clickListener, this);
         recyclerView.setAdapter(adapter);
+        placeOrders = findViewById(R.id.btn_placeOrders);
         shoppingCar = findViewById(R.id.btn_floatingAction);
         shoppingCar.setOnClickListener(v -> {
             // 打开购物车
             new ShoppingCarDialogFragment().show(this.getSupportFragmentManager(), "打开购物车");
+        });
+        //
+        placeOrders.setOnClickListener(v -> {
+            // 下单按钮
+            CustomDialog.showIsOrders(OrderActivity.this);
         });
         getVegetableList();
         updateVegetableCount(CustomDialog.hallTableNum);

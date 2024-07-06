@@ -39,13 +39,14 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end">
+                    android:gravity="end"
+                    tools:ignore="UselessParent">
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/btn_placeOrder"
+                        android:id="@+id/btn_placeOrders"
                         style="?attr/floatingActionButtonSmallStyle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/placeorders"
+                        app:srcCompat="@drawable/place_orders"
                         android:contentDescription="@string/fab_content_desc2" />
                 </LinearLayout>
 

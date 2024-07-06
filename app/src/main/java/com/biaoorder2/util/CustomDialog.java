@@ -2,7 +2,9 @@ package com.biaoorder2.util;
 
 import static androidx.core.content.ContextCompat.startActivity;
 import static com.biaoorder2.pool.ConstantPools.URL_SELECT_BOOKING_PHONE;
+import static com.biaoorder2.pool.ConstantPools.URL_UPDATE_DINNER;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,12 +29,15 @@ import com.biaoorder2.bean.OrderManager;
 import com.biaoorder2.bean.Orders;
 import com.biaoorder2.bean.VegetableInformation;
 import com.biaoorder2.pool.ConstantPools;
+import com.biaoorder2.ui.ReToast;
 import com.bumptech.glide.Glide;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.Response;
 
@@ -54,10 +59,9 @@ public class CustomDialog {
     public static void showDialog(Context mContext, String state, String title, int pos) {
         hallTableNum = pos;
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle(title + pos);
         switch (state) {
             case "0":
-                builder.setMessage("餐桌空闲中...");
+                builder.setTitle(title + pos + " 空闲中...");
                 builder.setPositiveButton("取消", (dialog, which) ->
                         dialog.dismiss());
                 builder.setNegativeButton("预定", (dialog, which) ->
@@ -71,7 +75,7 @@ public class CustomDialog {
                 builder.create().show();
                 break;
             case "1":
-                builder.setMessage("餐桌已预定...");
+                builder.setTitle(title + pos + " 已预定...");
                 final EditText nameInput = new EditText(mContext);
                 nameInput.setHint("预订人手机号:");
                 nameInput.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
@@ -94,13 +98,17 @@ public class CustomDialog {
                 builder.create().show();
                 break;
             case "2":
-                builder.setMessage("该餐桌用餐中...");
+                builder.setTitle(title + pos + " 用餐中...");
+                String savedOrder = OrderManager.getInstance().getSavedOrder(hallTableNum);
+                Integer total = OrderManager.getInstance().getTotal(hallTableNum);
+                builder.setMessage(savedOrder + "\n" + "总价格为: " + total + " 元");
                 builder.setPositiveButton("取消", (dialog, which) ->
                         dialog.dismiss());
                 builder.setNegativeButton("结账", (dialog, which) -> {
                 });
                 builder.setNeutralButton("加菜", (dialog, which) -> {
                     // 跳转至点餐的界面
+                    startActivity(mContext, new Intent(mContext, OrderActivity.class), null);
                 });
                 builder.create().show();
                 break;
@@ -146,7 +154,7 @@ public class CustomDialog {
                 jsonObject.put("name", "null");
                 jsonObject.put("phone", phone);
                 jsonObject.put("state", "1");
-                Response response = RequestUtils.post(ConstantPools.URL_UPDATE_DINNER, jsonObject.toString());
+                Response response = RequestUtils.post(URL_UPDATE_DINNER, jsonObject.toString());
                 if (!response.isSuccessful()) {
                     throw new IOException();
                 }
@@ -222,20 +230,82 @@ public class CustomDialog {
 
         // 添加菜品的操作
         add.setOnClickListener(v -> {
-            int selectedId = radioGroup.getCheckedRadioButtonId();
-            RadioButton selectedRadioButton = dialogView.findViewById(selectedId);
-            String selectedText = selectedRadioButton.getText().toString();
-            // 将菜品加入购物车
-            OrderManager orderManager = OrderManager.getInstance();
-            orderManager.addOrder(hallTableNum, new Orders(hallTableNum, vegetable, 1, selectedText));
+                    int selectedId = radioGroup.getCheckedRadioButtonId();
+                    RadioButton selectedRadioButton = dialogView.findViewById(selectedId);
+                    String selectedText = selectedRadioButton.getText().toString();
+                    // 将菜品加入购物车
+                    OrderManager orderManager = OrderManager.getInstance();
+                    orderManager.addOrder(hallTableNum, new Orders(hallTableNum, vegetable, 1, selectedText));
 
-            // 通知UI更新
-            if (onOrderAddedListener != null) {
-                onOrderAddedListener.onOrderAdded();
-            }
-            dialog.dismiss();
-            Toast.makeText(mContext, "已加入购物车", Toast.LENGTH_SHORT).show();
+                    // 通知UI更新
+                    if (onOrderAddedListener != null) {
+                        onOrderAddedListener.onOrderAdded();
+                    }
+                    dialog.dismiss();
+                    Toast.makeText(mContext, "已加入购物车", Toast.LENGTH_SHORT).show();
                 }
         );
+    }
+
+    // 显示是否下单
+    public static void showIsOrders(Context mContext) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("桌号:" + hallTableNum + "的订单列表\n");
+        OrderManager orderManager = OrderManager.getInstance();
+        String orderedInformation = orderManager.getSavedOrder(hallTableNum);
+        String orderInformation = orderManager.getOrderInformation(hallTableNum);
+        Integer total = orderManager.getTemporaryTotal(hallTableNum);
+
+        builder.setMessage(orderInformation + "\n" + "总价格为: " + total + " 元");
+        builder.setPositiveButton("取消", (dialog, which) ->
+                dialog.dismiss());
+        builder.setNegativeButton("下单", (dialog, which) -> {
+                    // 保存订单，并清空购物车，防止减餐，方便加餐和结账，设置餐桌的状态为用餐中
+                    orderManager.removeOrders(hallTableNum);
+                    orderManager.setTotal(hallTableNum,total+orderManager.getTotal(hallTableNum));
+                    if (!orderInformation.isEmpty() && orderedInformation != null) {
+                        orderManager.saveOrder(hallTableNum, orderedInformation + orderInformation);
+                        updateState(hallTableNum, "null", "null", "2", mContext);
+                        orderManager.setTemporaryTotal(hallTableNum,0);
+                    } else if (orderInformation.isEmpty()) {
+                        ReToast.show((Activity) mContext, "请先下单!");
+                    } else {
+                        orderManager.saveOrder(hallTableNum, orderInformation);
+                        updateState(hallTableNum, "null", "null", "2", mContext);
+                        orderManager.setTemporaryTotal(hallTableNum,0);
+                    }
+
+                }
+        );
+        builder.create().show();
+    }
+
+    public static void updateState(int no, String name, String phone, String state, Context mContext) {
+        new Thread(() -> {
+            try {
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("no", no);
+                jsonObject.put("name", name);
+                jsonObject.put("phone", phone);
+                jsonObject.put("state", state);
+                Response response = RequestUtils.post(URL_UPDATE_DINNER, jsonObject.toString());
+                if (!response.isSuccessful()) {
+                    throw new IOException();
+                }
+                String result = "";
+                if (response.body() != null) {
+                    result = response.body().string();
+                }
+                response.close();
+                JSONObject data = new JSONObject(result);
+                String code = data.getString("code");
+                if (code.equals("1")) {
+                    ReToast.show((Activity) mContext, "下单成功,请等待用餐!");
+                }
+            } catch (JSONException | IOException e) {
+                throw new RuntimeException(e);
+            }
+        }).start();
+
     }
 }

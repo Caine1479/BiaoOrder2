@@ -60,6 +60,7 @@ public class LRShoppingCarAdapter extends RecyclerView.Adapter<LRShoppingCarAdap
             if (Integer.parseInt(holder.binding.tvCount.getText().toString()) <= 0) {
                 removeItem(removedPosition);
                 orderManager.removeOrder(CustomDialog.hallTableNum, orders1);
+                orderManager.updateTotal(CustomDialog.hallTableNum,Integer.parseInt(orders1.vegetableInformation.getPrice()));
             }
         });
     }

@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
                 jsonData.put("password", password);
                 Response response = RequestUtils.post(ConstantPools.URL_LOGIN, jsonData.toString());
                 if (!response.isSuccessful()){
-                    throw new IOException();
+                    ReToast.show(LoginActivity.this,"服务器未响应,请联系管理员!");
                 }
                 String result = "";
                 if (response.body() != null) {
