@@ -24,11 +24,11 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 
 import com.biaoorder2.R;
+import com.biaoorder2.activity.CheckoutActivity;
 import com.biaoorder2.activity.OrderActivity;
 import com.biaoorder2.bean.OrderManager;
 import com.biaoorder2.bean.Orders;
 import com.biaoorder2.bean.VegetableInformation;
-import com.biaoorder2.pool.ConstantPools;
 import com.biaoorder2.ui.ReToast;
 import com.bumptech.glide.Glide;
 
@@ -36,8 +36,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
+
 
 import okhttp3.Response;
 
@@ -105,6 +104,10 @@ public class CustomDialog {
                 builder.setPositiveButton("取消", (dialog, which) ->
                         dialog.dismiss());
                 builder.setNegativeButton("结账", (dialog, which) -> {
+                    // 结账的时间，下单的列表，总价，支付方式，桌号，写入数据库
+                    // 设置餐桌为空闲状态，清空临时总价和订单
+                    Intent intent = new Intent(mContext, CheckoutActivity.class);
+                    startActivity(mContext, intent, null);
                 });
                 builder.setNeutralButton("加菜", (dialog, which) -> {
                     // 跳转至点餐的界面
@@ -216,11 +219,11 @@ public class CustomDialog {
 
         ImageView imgVegetable = dialogView.findViewById(R.id.img_vegetable);
         TextView tvVegetable = dialogView.findViewById(R.id.tv_VegetableName);
-        RadioGroup radioGroup = dialogView.findViewById(R.id.r_group);
+
 
         Glide.with(mContext).load(vegetable.getImageLink()).into(imgVegetable);
         tvVegetable.setText(vegetable.getName());
-
+        RadioGroup radioGroup = dialogView.findViewById(R.id.r_group);
         // 创建并显示对话框
         AlertDialog dialog = builder.create();
         dialog.show();
@@ -250,7 +253,7 @@ public class CustomDialog {
     // 显示是否下单
     public static void showIsOrders(Context mContext) {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("桌号:" + hallTableNum + "的订单列表\n");
+        builder.setTitle("桌号:" + hallTableNum + " 订单列表:\n");
         OrderManager orderManager = OrderManager.getInstance();
         String orderedInformation = orderManager.getSavedOrder(hallTableNum);
         String orderInformation = orderManager.getOrderInformation(hallTableNum);
@@ -262,17 +265,17 @@ public class CustomDialog {
         builder.setNegativeButton("下单", (dialog, which) -> {
                     // 保存订单，并清空购物车，防止减餐，方便加餐和结账，设置餐桌的状态为用餐中
                     orderManager.removeOrders(hallTableNum);
-                    orderManager.setTotal(hallTableNum,total+orderManager.getTotal(hallTableNum));
+                    orderManager.setTotal(hallTableNum, total + orderManager.getTotal(hallTableNum));
                     if (!orderInformation.isEmpty() && orderedInformation != null) {
                         orderManager.saveOrder(hallTableNum, orderedInformation + orderInformation);
-                        updateState(hallTableNum, "null", "null", "2", mContext);
-                        orderManager.setTemporaryTotal(hallTableNum,0);
+                        updateState(hallTableNum, "null", "null", "2", mContext, "下单成功!");
+                        orderManager.setTemporaryTotal(hallTableNum, 0);
                     } else if (orderInformation.isEmpty()) {
                         ReToast.show((Activity) mContext, "请先下单!");
                     } else {
                         orderManager.saveOrder(hallTableNum, orderInformation);
-                        updateState(hallTableNum, "null", "null", "2", mContext);
-                        orderManager.setTemporaryTotal(hallTableNum,0);
+                        updateState(hallTableNum, "null", "null", "2", mContext, "下单成功!");
+                        orderManager.setTemporaryTotal(hallTableNum, 0);
                     }
 
                 }
@@ -280,7 +283,7 @@ public class CustomDialog {
         builder.create().show();
     }
 
-    public static void updateState(int no, String name, String phone, String state, Context mContext) {
+    public static void updateState(int no, String name, String phone, String state, Context mContext, String reason) {
         new Thread(() -> {
             try {
                 JSONObject jsonObject = new JSONObject();
@@ -300,12 +303,17 @@ public class CustomDialog {
                 JSONObject data = new JSONObject(result);
                 String code = data.getString("code");
                 if (code.equals("1")) {
-                    ReToast.show((Activity) mContext, "下单成功,请等待用餐!");
+                    ReToast.show((Activity) mContext, reason);
                 }
             } catch (JSONException | IOException e) {
                 throw new RuntimeException(e);
             }
         }).start();
+    }
+
+    public void isCheckout(Context mContext) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setTitle("桌号:" + hallTableNum + " 结账中...");
 
     }
 }

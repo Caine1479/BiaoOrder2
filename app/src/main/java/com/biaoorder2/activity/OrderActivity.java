@@ -51,7 +51,6 @@ public class OrderActivity extends AppCompatActivity implements OnOrderAddedList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_order);
         initView();
     }

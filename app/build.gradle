@@ -19,12 +19,23 @@ android {
         }
     }
 
+    signingConfigs {
+        release {
+            keyAlias 'key0'
+            keyPassword '1479.asdf'
+            storeFile file('D:\\AndroidFile\\BiaoOrder2\\sign.jks')
+            storePassword '1479.asdf'
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -45,6 +56,8 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+
+
 }
 
 dependencies {

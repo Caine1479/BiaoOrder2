@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/checkout_style">
+
+    <TextView
+        android:id="@+id/tv_checkout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:gravity="center"
+        android:text="@string/checkout_tip"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+    <RelativeLayout
+        android:id="@+id/rl_orderList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_checkout"
+        android:layout_margin="10dp"
+        android:background="@drawable/checkout_card">
+        <TextView
+            android:id="@+id/tv_orderList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:gravity="center" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_payWay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/rl_pay"
+        android:layout_margin="10dp"
+        android:background="@drawable/checkout_card">
+
+        <RadioGroup
+            android:id="@+id/r_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+            <RadioButton
+                android:id="@+id/wechat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:checked="true"
+                android:text="@string/wechat"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/alipay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/alipay"
+                android:textSize="12sp" />
+
+            <RadioButton
+                android:id="@+id/cash"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/cash"
+                android:textSize="12sp" />
+
+        </RadioGroup>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_pay"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_totalTip"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_toStartOf="@+id/tv_total"
+            android:text="@string/total"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="8dp"
+            android:gravity="center_vertical"
+            android:layout_toStartOf="@+id/btn_pay"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/btn_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="1dp"
+            android:text="@string/submit"
+            android:textSize="16sp"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+
+</RelativeLayout>

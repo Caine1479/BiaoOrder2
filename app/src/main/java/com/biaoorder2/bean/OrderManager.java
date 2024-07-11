@@ -117,6 +117,19 @@ public class OrderManager {
         orderMap.remove(no);
     }
 
+    // 删除某个 no 保存的订单
+    public synchronized void removeSavedOrders(int no) {
+        savedOrders.remove(no);
+    }
+
+    // 删除某个 no 保存的总价
+    public synchronized void removeTotal(int no) {
+        total.remove(no);
+    }
+
+
+
+
     // 修改总价
     public synchronized void updateTotal(int no, int price) {
         Integer i = temporaryTotal.get(no);
