@@ -310,10 +310,4 @@ public class CustomDialog {
             }
         }).start();
     }
-
-    public void isCheckout(Context mContext) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setTitle("桌号:" + hallTableNum + " 结账中...");
-
-    }
 }
