@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/hall_card"
+    android:layout_marginTop="6dp"
+    android:layout_marginBottom="2dp"
+    android:padding="16dp">
+    <ImageView
+        android:id="@+id/img_table"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/table2"
+        android:contentDescription="@string/orderPic" />
+    <TextView
+        android:id="@+id/tv_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/img_table"
+        android:textSize="14sp"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="24dp"
+        android:text="@string/orderNo"/>
+
+    <TextView
+        android:id="@+id/tv_orderNo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@+id/tv_order"
+        android:textSize="12sp"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="4dp"
+        tools:ignore="RelativeOverlap" />
+
+    <TextView
+        android:id="@+id/tv_payTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="24dp"
+        android:layout_below="@id/tv_order"
+        android:layout_toEndOf="@+id/img_table" />
+
+    <TextView
+        android:id="@+id/tv_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/tv_payTime"
+        android:layout_toStartOf="@+id/tv_totalPrice"
+        android:text="@string/yuan"/>
+    <TextView
+        android:id="@+id/tv_totalPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/tv_payTime"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:id="@+id/tv_payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:layout_marginTop="4dp"
+        android:layout_below="@id/tv_total"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:id="@+id/img_deleteOrder"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:background="@drawable/bin_state"
+        android:layout_alignParentEnd="true"
+        android:contentDescription="@string/delete_order">
+    </ImageView>
+
+
+</RelativeLayout>

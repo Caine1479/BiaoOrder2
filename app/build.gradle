@@ -56,12 +56,11 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
-
-
 }
 
 dependencies {
-
+    implementation libs.com.google.android.material.material.v180
+    implementation libs.mp.androidchart // 使用 JitPack 远程仓库版本
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity
@@ -83,4 +82,8 @@ dependencies {
     implementation libs.navigation.ui
     implementation libs.glide
     implementation libs.swiperefreshlayout
+    androidTestImplementation platform(libs.compose.bom)
+    androidTestImplementation libs.ui.test.junit4
+    debugImplementation libs.ui.tooling
+    debugImplementation libs.ui.test.manifest
 }

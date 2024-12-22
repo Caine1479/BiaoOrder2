@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/nav_settings"
-        android:icon="@drawable/ic_settings_black_24dp"
-        android:title="@string/menu_settings" />
+    <item android:id="@+id/delete_table"
+        android:title="@string/delete_table" />
+
+    <item android:id="@+id/add_table"
+        android:title="@string/add_table" />
+
+    <item android:id="@+id/cancel"
+        android:title="@string/cancel" />
 </menu>

@@ -7,12 +7,32 @@ public class VegetableInformation {
     private String name;
     private String price;
     private String imageLink;
+    private int sales;
+    private String category;
 
-    public VegetableInformation(int id, String name, String price, String imageLink) {
+    public VegetableInformation(int id, String name, String price, String imageLink, int sales, String category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.imageLink = imageLink;
+        this.sales = sales;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getSales() {
+        return sales;
+    }
+
+    public void setSales(int sales) {
+        this.sales = sales;
     }
 
     public int getId() {
@@ -47,4 +67,15 @@ public class VegetableInformation {
         this.imageLink = imageLink;
     }
 
+    @NonNull
+    @Override
+    public String toString() {
+        return "VegetableInformation{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", sales=" + sales +
+                ", category='" + category + '\'' +
+                '}';
+    }
 }

@@ -16,14 +16,6 @@ public class Orders {
         this.taste = taste;
     }
 
-    public int getTableNo() {
-        return tableNo;
-    }
-
-    public void setTableNo(int tableNo) {
-        this.tableNo = tableNo;
-    }
-
     public VegetableInformation getVegetableInformation() {
         return vegetableInformation;
     }
@@ -44,9 +36,6 @@ public class Orders {
         return taste;
     }
 
-    public void setTaste(String taste) {
-        this.taste = taste;
-    }
 
     @NonNull
     @Override

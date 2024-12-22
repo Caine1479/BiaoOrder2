@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 点击选中状态 -->
+    <item android:state_selected="true">
+        <shape android:shape="oval">
+            <solid android:color="@color/dark_gray" /> <!-- 选中背景为灰色 -->
+        </shape>
+    </item>
+    <!-- 默认未选中状态 -->
+    <item android:state_selected="false">
+        <shape android:shape="oval">
+            <solid android:color="@android:color/transparent" /> <!-- 默认透明 -->
+        </shape>
+    </item>
+</selector>

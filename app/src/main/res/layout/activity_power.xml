@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topPowerBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#DCDCDC"
+        android:minHeight="?attr/actionBarSize"
+        app:navigationIcon="@drawable/back"
+        app:title="职位管理"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/CustomToolbarTitleTextAppearance"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_power"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/topPowerBar"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

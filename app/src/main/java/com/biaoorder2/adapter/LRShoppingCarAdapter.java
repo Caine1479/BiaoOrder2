@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.biaoorder2.bean.OrderManager;
+import com.biaoorder2.manager.OrderManager;
 import com.biaoorder2.bean.Orders;
 import com.biaoorder2.databinding.AdapterShoppingcarBinding;
 import com.biaoorder2.util.CustomDialog;
-import com.biaoorder2.util.setOnClickListener;
+import com.biaoorder2.Interface.setOnClickListener;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
@@ -26,8 +26,8 @@ public class LRShoppingCarAdapter extends RecyclerView.Adapter<LRShoppingCarAdap
 
     public setOnClickListener listener;
 
+    public AdapterShoppingcarBinding binding;
     public OrderManager orderManager = OrderManager.getInstance();
-
 
 
     public LRShoppingCarAdapter(Context mContext, List<Orders> ordersList, setOnClickListener listener) {
@@ -39,28 +39,34 @@ public class LRShoppingCarAdapter extends RecyclerView.Adapter<LRShoppingCarAdap
     @NonNull
     @Override
     public LinearViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LinearViewHolder(AdapterShoppingcarBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+        this.mContext = parent.getContext();
+        binding = AdapterShoppingcarBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        return new LinearViewHolder(binding);
     }
 
     @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindViewHolder(@NonNull LinearViewHolder holder, int position) {
         holder.bind(ordersList.get(position), mContext);
-        Orders orders = OrderManager.getInstance().getOrders(CustomDialog.hallTableNum).get(position);
-        holder.binding.imgAdd.setOnClickListener(v -> {
+
+        holder.binding.imgDishAdd.setOnClickListener(v -> {
+            Orders orders = OrderManager.getInstance().getOrders(CustomDialog.hallTableNum).get(position);
             orders.setVegetableNum(orders.getVegetableNum() + 1);
-            holder.binding.tvCount.setText(String.valueOf(Integer.parseInt(holder.binding.tvCount.getText().toString())+1));
+
+            holder.binding.tvCount.setText(String.valueOf(Integer.parseInt(holder.binding.tvCount.getText().toString()) + 1));
             notifyDataSetChanged();
         });
-        holder.binding.imgMinus.setOnClickListener(v -> {
+
+        holder.binding.imgDishMinus.setOnClickListener(v -> {
             int removedPosition = holder.getLayoutPosition(); // 获取删除项的位置
             Orders orders1 = OrderManager.getInstance().getOrders(CustomDialog.hallTableNum).get(removedPosition);
             orders1.setVegetableNum(orders1.getVegetableNum() - 1);
-            holder.binding.tvCount.setText(String.valueOf(Integer.parseInt(holder.binding.tvCount.getText().toString())-1));
+
+            holder.binding.tvCount.setText(String.valueOf(Integer.parseInt(holder.binding.tvCount.getText().toString()) - 1));
             if (Integer.parseInt(holder.binding.tvCount.getText().toString()) <= 0) {
                 removeItem(removedPosition);
                 orderManager.removeOrder(CustomDialog.hallTableNum, orders1);
-                orderManager.updateTotal(CustomDialog.hallTableNum,Integer.parseInt(orders1.vegetableInformation.getPrice()));
+                orderManager.updateTotal(CustomDialog.hallTableNum, Integer.parseInt(orders1.vegetableInformation.getPrice()));
             }
         });
     }
@@ -87,6 +93,7 @@ public class LRShoppingCarAdapter extends RecyclerView.Adapter<LRShoppingCarAdap
             Glide.with(mContext).load(orders.getVegetableInformation().getImageLink()).into(binding.imgShoppingTable);
         }
     }
+
     private void removeItem(int position) {
         if (ordersList != null && position < ordersList.size()) {
             ordersList.remove(position);

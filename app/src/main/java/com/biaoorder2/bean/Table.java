@@ -4,14 +4,33 @@ public class Table {
     private int no;
     private String name;
     private String phone;
-
     private String state;
+    private String currentOrder;
+    private int currentTotal;
 
-    public Table(int no, String name, String phone, String state) {
+    public Table(int no, String name, String phone, String state, String currentOrder, int currentTotal) {
         this.no = no;
         this.name = name;
         this.phone = phone;
         this.state = state;
+        this.currentOrder = currentOrder;
+        this.currentTotal = currentTotal;
+    }
+
+    public int getCurrentTotal() {
+        return currentTotal;
+    }
+
+    public void setCurrentTotal(int currentTotal) {
+        this.currentTotal = currentTotal;
+    }
+
+    public String getCurrentOrder() {
+        return currentOrder;
+    }
+
+    public void setCurrentOrder(String currentOrder) {
+        this.currentOrder = currentOrder;
     }
 
     public int getNo() {

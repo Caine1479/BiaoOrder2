@@ -1,11 +1,11 @@
 <resources>
-    <string name="app_name">BiaoOrder</string>
+    <string name="app_name">BIAO\'S ORDER</string>
     <string name="id">ID:</string>
     <string name="password">密码:</string>
     <string name="button_login">登录</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="yuan">元</string>
+    <string name="yuan">¥</string>
     <string name="maoHao">:</string>
     <string name="fab_content_desc">shoppingCar\n</string>
     <string name="fab_content_desc2">下单\n</string>
@@ -52,5 +52,39 @@
     <string name="spicy">爆辣</string>
     <string name="one">1</string>
     <string name="placeAnOrder">下单</string>
+    <string name="salesTotal">营业统计</string>
+    <string name="userSetting">员工管理</string>
+    <string name="online">在线客服</string>
+    <string name="aboutUs">关于我们</string>
+    <string name="page_title">大厅</string>
+    <string name="veg_title">点餐</string>
+    <string name="content_top_one">1</string>
+    <string name="content_top_two">2</string>
+    <string name="delete_table">删除餐桌</string>
+    <string name="add_table">添加餐桌</string>
+    <string name="delete_vegetable">删除餐品</string>
+    <string name="add_vegetable">添加菜品</string>
+    <string name="todo">TODO</string>
+    <string name="searchHistory">查询历史订单</string>
+    <string name="searchOrder">搜索菜品</string>
+    <string name="orderNo">订单号:</string>
+    <string name="delete_order">删除订单</string>
+    <string name="orderPic">orderPic</string>
+    <string name="sales">月销:</string>
+    <string name="add_button_description">添加餐品数量</string>
+    <string name="minus_button_description">减少餐品数量</string>
+    <string name="businessData">营业数据概况</string>
+    <string name="vegetablesCount">菜品销售数量统计</string>
+    <string name="turnover">营业额(元)</string>
+    <string name="ordersCount">订单数(个)</string>
+    <string name="allSales"><![CDATA[查看完整榜单 >]]></string>
+    <string name="fen">份</string>
+    <string name="menuSet">菜单编辑</string>
+    <string name="editMenu">编辑菜品信息</string>
+    <string name="ok">确认修改</string>
+    <string name="top">top</string>
+    <string name="zhankai"><![CDATA[成员列表|>]]></string>
+    <string name="zuo"><![CDATA[<]]></string>
+    <string name="you"><![CDATA[>]]></string>
 
 </resources>

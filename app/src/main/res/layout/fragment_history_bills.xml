@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinator_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- AppBarLayout for search bar and its behavior -->
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout_history"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <!-- SearchBar inside AppBarLayout -->
+            <com.google.android.material.search.SearchBar
+                android:id="@+id/search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/searchHistory"
+                app:layout_scrollFlags="scroll|enterAlways" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <!-- SearchView anchored to SearchBar -->
+        <com.google.android.material.search.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_anchor="@id/search_bar"
+            app:layout_anchorGravity="center" >
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView_searchBill"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scrollbars="vertical"
+                tools:ignore="MissingConstraints" />
+
+        </com.google.android.material.search.SearchView>
+
+
+        <!-- RecyclerView below AppBarLayout -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_historyBill"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            android:paddingTop="2dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            tools:ignore="MissingConstraints" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="108dp"
+            android:contentDescription="@string/top"
+            style="?attr/floatingActionButtonSmallStyle"
+            app:srcCompat="@drawable/top" />
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

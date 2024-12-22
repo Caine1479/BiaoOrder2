@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,80 +6,185 @@
     android:layout_height="match_parent"
     tools:context=".activity.OrderActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView_vegetableMenu"
+    <!-- 顶部工具栏 -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topVegetableBar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="#DCDCDC"
+        android:minHeight="?attr/actionBarSize"
+        app:layout_collapseMode="pin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navigationIcon="@drawable/back"
+        app:title="@string/veg_title"
+        app:titleCentered="true"
+        app:titleTextAppearance="@style/CustomToolbarTitleTextAppearance" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_top"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topVegetableBar">
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/vegetableBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/topVegetableBar"
+                app:liftOnScroll="true">
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+                    <!-- 搜索栏和分类列表 -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/grayish"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.search.SearchBar
+                            android:id="@+id/search_bar"
+                            android:layout_width="match_parent"
+                            android:layout_height="36dp"
+                            android:hint="@string/searchOrder" />
+
+                        <!-- recyclerView_category 放置在 search_bar 下方 -->
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_category"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/hall_card"
+                            android:orientation="horizontal"
+                            android:padding="4dp"
+                            tools:ignore="NotSibling" />
+                    </LinearLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+            <!-- SwipeRefreshLayout 包含 CoordinatorLayout -->
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresh_layout2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <!-- 主 RecyclerView 菜单显示在 recyclerView_category 下面 -->
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerView_vegetableMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/grayish"
+                        android:paddingStart="8dp"
+                        android:paddingTop="2dp"
+                        android:paddingEnd="8dp"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+                    <com.google.android.material.search.SearchView
+                        android:id="@+id/search_orderView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_behavior="com.google.android.material.search.SearchView$Behavior">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerView_searchOrder"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scrollbars="vertical" />
+                    </com.google.android.material.search.SearchView>
+                </RelativeLayout>
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <!-- SearchView 锚定到 SearchBar -->
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <RelativeLayout
+        <FrameLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp">
+            android:layout_height="wrap_content">
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/btn_floatingAction"
                 style="?attr/floatingActionButtonSmallStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
                 android:contentDescription="@string/fab_content_desc"
-                app:srcCompat="@drawable/shopping_car"
-                tools:ignore="RelativeOverlap" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="end"
-                    tools:ignore="UselessParent">
-                    <com.google.android.material.floatingactionbutton.FloatingActionButton
-                        android:id="@+id/btn_placeOrders"
-                        style="?attr/floatingActionButtonSmallStyle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:srcCompat="@drawable/place_orders"
-                        android:contentDescription="@string/fab_content_desc2" />
-                </LinearLayout>
-
-            </LinearLayout>
+                app:elevation="2dp"
+                app:srcCompat="@drawable/shopping_car" />
 
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/card_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/btn_floatingAction"
-                android:layout_marginBottom="-20dp"
-
-                android:elevation="128dp"
                 android:focusable="true"
                 app:cardBackgroundColor="@color/red"
-                app:cardElevation="1000dp">
+                app:cardElevation="2dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/tv_card"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:background="@color/transparent"
-                        android:textColor="@color/white" />
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/tv_card"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/transparent"
+                    android:textColor="@color/white" />
             </com.google.android.material.card.MaterialCardView>
-        </RelativeLayout>
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        </FrameLayout>
+
+        <!-- 占用剩余空间的空白组件 -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_placeOrders"
+            style="?attr/floatingActionButtonSmallStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/fab_content_desc2"
+            app:elevation="2dp"
+            app:srcCompat="@drawable/place_orders" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

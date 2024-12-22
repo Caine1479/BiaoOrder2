@@ -8,14 +8,15 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.biaoorder2.R;
 import com.biaoorder2.activity.OrderActivity;
 import com.biaoorder2.adapter.LRShoppingCarAdapter;
-import com.biaoorder2.bean.OrderManager;
+import com.biaoorder2.manager.OrderManager;
 import com.biaoorder2.bean.Orders;
+import com.biaoorder2.databinding.FragmentShoppingcarBinding;
 import com.biaoorder2.util.CustomDialog;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -26,17 +27,28 @@ public class ShoppingCarDialogFragment extends BottomSheetDialogFragment {
     public RecyclerView recyclerView;
     public LRShoppingCarAdapter adapter;
 
+    public FragmentShoppingcarBinding binding;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        binding = FragmentShoppingcarBinding.inflate(getLayoutInflater());
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_shoppingcar, container, false);
+        return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recyclerView_shopping);
-        recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
+        recyclerView = binding.recyclerViewShopping;
+        recyclerView.addItemDecoration
+                (new DividerItemDecoration(recyclerView.getContext(), DividerItemDecoration.VERTICAL));
+        recyclerView.setLayoutManager(new GridLayoutManager(requireContext(), 1));
 
         OrderManager orderManager = OrderManager.getInstance();
         ordersList = orderManager.getOrders(CustomDialog.hallTableNum); // 获取订单列表

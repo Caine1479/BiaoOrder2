@@ -3,10 +3,15 @@
     <item
         android:id="@+id/hall_item"
         android:icon="@drawable/table"
-        android:title="@string/hall" />
+        android:title="" />
+
+    <item
+        android:id="@+id/orderList_item"
+        android:icon="@drawable/order_list"
+        android:title="" />
 
     <item
         android:id="@+id/personalCenter_item"
-        android:icon="@drawable/username"
-        android:title="@string/personalCenter" />
+        android:icon="@drawable/person"
+        android:title="" />
 </menu>
